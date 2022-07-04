@@ -1,7 +1,6 @@
 /* TODO: name the pkg and export explicitily as the default */
 /* TODO: explicit the defaultapp */
 /* TODO: don't override the result/ built with each package */
-/* this is a good example of the flake of an application using go, notheless it is more important to us, to apply a flake to a terminal tool and the nixos system*/
 {
   description = "A simple Go package";
   # can also be set system wide, see:
