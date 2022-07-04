@@ -63,6 +63,16 @@
 
       defaultApp = forAllSystems (system: self.apps.${system}.default);
 
+      devShells = forAllSystems (system:
+        let pkgs = nixpkgsFor.${system};
+        in {
+          default = pkgs.mkShell {
+            buildInputs = with pkgs; [ go gopls gotools go-tools ];
+          };
+        });
+
+      devShell = forAllSystems (system: self.devShells.${system}.default);
+
       # The default package for 'nix build'. This makes sense if the
       # flake provides only one package or there is a clear "main"
       # package.
