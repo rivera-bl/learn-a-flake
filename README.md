@@ -1,10 +1,10 @@
-### First Flake
+## First Flake
 
 Leaving this here to diff a `flake` without/with `flake-utils`
 
 `nix flake new -t templates#go-hello .`
 
-### dockerTools.buildLayeredImage {}
+## dockerTools.buildLayeredImage {}
 
 should add docker to `configuration.nix`, in the meanwhile:
 
@@ -15,6 +15,14 @@ sudo dockerd &
 sudo docker load < result
 sudo docker run go-hello:<tag>
 ```
+
+## direnv
+
+```
+nix profile install nixpkgs#direnv
+```
+
+## Resources
 
 - [Practical Nix Flakes][1]
 - [How to make your own templates][2]
