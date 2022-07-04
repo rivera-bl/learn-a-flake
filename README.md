@@ -18,8 +18,13 @@ sudo docker run go-hello:<tag>
 
 ## direnv
 
+check for the setup needed for your `shell` [here](https://direnv.net/docs/hook.html)
+
 ```
 nix profile install nixpkgs#direnv
+echo "use flake" >> .envrc && direnv allow
+echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
+source ~/.bashrc
 ```
 
 ## Resources
