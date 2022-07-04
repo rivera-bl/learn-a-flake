@@ -1,5 +1,6 @@
 /* TODO: name the pkg and export explicitily as the default */
 /* TODO: explicit the defaultapp */
+/* TODO: don't override the result/ built with each package */
 /* this is a good example of the flake of an application using go, notheless it is more important to us, to apply a flake to a terminal tool and the nixos system*/
 {
   description = "A simple Go package";
@@ -24,6 +25,19 @@
           src = ./.;
 
           vendorSha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
+        };
+
+        packages.docker = let
+          hello = self.packages.${system}.default;
+        in pkgs.dockerTools.buildLayeredImage {
+          name = hello.pname;
+          tag = hello.version;
+          contents = [ hello ];
+
+          config = {
+            Cmd = [ "/bin/go-hello" ];
+            WorkingDir = "/";
+          };
         };
 
         devShells.default = with pkgs; # avoid writing pkgs.mkShell, pkgs.go ..
