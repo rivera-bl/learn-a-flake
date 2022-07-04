@@ -4,6 +4,9 @@
 /* this is a good example of the flake of an application using go, notheless it is more important to us, to apply a flake to a terminal tool and the nixos system*/
 {
   description = "A simple Go package";
+  # can also be set system wide, see:
+  # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html#conf-bash-prompt
+  nixConfig.bash-prompt = "\[nix-develop\]$ ";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-21.11";
