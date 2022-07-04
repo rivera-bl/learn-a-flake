@@ -30,7 +30,7 @@
         let
           pkgs = nixpkgsFor.${system};
         in
-        {
+        rec {
           go-hello = pkgs.buildGoModule {
             pname = "go-hello";
             inherit version;
@@ -50,7 +50,18 @@
 
             vendorSha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
           };
-        });
+          default = go-hello;
+      });
+
+      apps = forAllSystems (system: rec {
+        go-hello = {
+            type = "app";
+            program = "${self.packages.${system}.default}/bin/go-hello";
+        };
+        default = go-hello;
+      });
+
+      defaultApp = forAllSystems (system: self.apps.${system}.default);
 
       # The default package for 'nix build'. This makes sense if the
       # flake provides only one package or there is a clear "main"
