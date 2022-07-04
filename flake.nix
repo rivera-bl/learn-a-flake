@@ -18,7 +18,7 @@
       in
       {
 
-        defaultPackage = pkgs.buildGoModule {
+        packages.default = pkgs.buildGoModule {
           pname = "go-hello";
           inherit version;
           src = ./.;
@@ -26,7 +26,7 @@
           vendorSha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
         };
 
-        devShell = with pkgs; # avoid writing pkgs.mkShell, pkgs.go ..
+        devShells.default = with pkgs; # avoid writing pkgs.mkShell, pkgs.go ..
           mkShell {
             buildInputs = [ go gopls gotools go-tools ];
          };
