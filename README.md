@@ -51,6 +51,12 @@ nix-channel --add https://nixos.org/channels/nixos-22.05 nixos
 nix-channel --update nixos; nixos-rebuild switch
 ```
 
+### Known Issues
+
+- When mounting a directory from the host to the vagrant vm with `config.vm.synced_folder`, it gets wiped out if we do a `nixos-rebuild switch`. We can restart the vm for the directory to be mounted again.
+- `nix-env -i` can be an intensive memory proccess when it has to look for every item in the store to match the requested package. That's why we have to provision the vm with at least 4GB of RAM if we want to query the store without limitations. Although there are more smart ways of selecting the `.drv` for installation. For example we can use `nix repl` with `:l <nixpkgs>` to load the store, and `<pkg-name>` to output it's exact `.drv` location.
+
+
 ## Resources
 
 - [Practical Nix Flakes][1]
